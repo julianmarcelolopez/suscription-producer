@@ -1,0 +1,26 @@
+# kafka.toml
+app = "kafka-broker"
+
+[
+build
+]
+  image = "wurstmeister/kafka:latest"
+
+[
+env
+]
+  KAFKA_ZOOKEEPER_CONNECT = "zookeeper.internal:2181"
+  KAFKA_ADVERTISED_LISTENERS = "PLAINTEXT://kafka.internal:9092"
+  KAFKA_LISTENERS = "PLAINTEXT://0.0.0.0:9092"
+  KAFKA_CREATE_TOPICS = "subscription-topic:1:1"
+
+[[
+services
+]]
+  internal_port = 9092
+  protocol = "tcp"
+
+  [[
+services.ports
+]]
+    port = 9092

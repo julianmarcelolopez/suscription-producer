@@ -1,0 +1,18 @@
+# zookeeper.toml
+app = "zookeeper"
+
+[
+build
+]
+  image = "wurstmeister/zookeeper:latest"
+
+[[
+services
+]]
+  internal_port = 2181
+  protocol = "tcp"
+
+  [[
+services.ports
+]]
+    port = 2181

@@ -1,0 +1,39 @@
+# fly.toml
+app = "subscription-service"
+primary_region = "iad" # Cambia esto a tu región preferida
+
+[
+build
+]
+  image = "subscription-service:latest"
+
+[
+env
+]
+  SPRING_PROFILES_ACTIVE = "prod"
+  KAFKA_BOOTSTRAP_SERVERS = "kafka.internal:9092"
+
+[[
+services
+]]
+  internal_port = 8080
+  protocol = "tcp"
+
+  [[
+services.ports
+]]
+    port = 80
+    handlers = ["http"]
+    force_https = true
+  
+  [[
+services.ports
+]]
+    port = 443
+    handlers = ["tls", "http"]
+
+[
+metrics
+]
+  port = 8080
+  path = "/metrics"
